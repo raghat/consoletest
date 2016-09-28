@@ -15,3 +15,14 @@ git status
 git commit
 git push
 git log
+
+Tools Used:
+===========
+Console application was developed using Eclipse Juno version IDE using Windows 32-bit version and JDK 1.8
+Source code was checked in using Git and Git Bash.
+The project structure was created using Maven and used for building and running the application.
+All dependencies are mentioned in the pom.xml under project root directory and there is single pom.xml.
+output.xsd was used as a schema to generate JAXB classes using xjc command utility which comes with Jdk.
+JUnit tests written using JUnit and Mockito.
+log4j used for logging purposes.
+
