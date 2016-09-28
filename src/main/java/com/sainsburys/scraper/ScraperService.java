@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.apache.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sainsburys.consoleapp.exception.ScraperException;
 import com.sainsburys.consoleapp.model.Item;
 import com.sainsburys.consoleapp.model.Output;;
 
@@ -31,7 +32,7 @@ public class ScraperService {
      * @param htmlDocument document containing required product data
      * @return Item item/product data
      */
-    public Item getItem(Document htmlDocument) {
+    public Item getItem(Document htmlDocument) throws ScraperException{
 
     	// Get the title from h1 tag
     	Elements titleElement = 
@@ -70,7 +71,8 @@ public class ScraperService {
      * @param optional actual element on derived selector element.
      * @return Elements elements of objects.
      */
-    public Elements readElement(Document doc, String selector, String actualElement){
+    public Elements readElement(Document doc, String selector, String actualElement)
+    throws ScraperException{
         Element htmlElement = doc.select(selector).first();
         Elements htmlElements = new Elements();
     	Optional<Element> optionalElement = Optional.ofNullable(htmlElement);
@@ -79,9 +81,12 @@ public class ScraperService {
     	if(optionalElement.isPresent() && optionalActElement.isPresent()){
     		log.debug("Inner element present for selector: "+selector);
             htmlElements = htmlElement.getElementsByTag(actualElement);
-    	}else{
+    	}else if(optionalElement.isPresent() && !optionalActElement.isPresent()){
     		log.debug("No Inner element present for selector: "+selector);
     		htmlElements.add(htmlElement);
+    	}else{
+    		throw new ScraperException("Unable to read the html page " +
+    				"for the selector:" +selector);
     	}
     		
     	return htmlElements;
@@ -119,7 +124,10 @@ public class ScraperService {
             return outputJson;
         } catch (IOException ex) {
         	log.error(ex);
-        	throw ex;
+        	throw new ScraperException(ex.getMessage());
+        }catch (Exception ex) {
+        	log.error(ex);
+        	throw new ScraperException(ex.getMessage());
         }
     }
 }

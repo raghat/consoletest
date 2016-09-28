@@ -84,7 +84,7 @@ public class ScraperTests {
 	}
 	
 	@Test
-	public void testReadElementForPrice() {
+	public void testReadElementForPrice() throws ScraperException{
 		String html = "<html><head><title>Sainsburys site</title></head><body>" +
 				"<p class=\"pricePerUnit\">£3.50/unit</p><body></html>";
 		
@@ -94,7 +94,7 @@ public class ScraperTests {
 	}
 	
 	@Test
-	public void testReadElementForDesc() {
+	public void testReadElementForDesc()  throws ScraperException{
 		String html = "<html><head><title>Sainsburys site</title></head><body>" +
 				"<div class=\"productText\">Great to eat</div><body></html>";
 		
@@ -104,7 +104,7 @@ public class ScraperTests {
 	}
 	
 	@Test
-	public void testReadElementForTitle() {
+	public void testReadElementForTitle()  throws ScraperException{
 		String html = "<html><head><title>Sainsburys site</title></head><body>" +
 				"<div class=\"productTitleDescriptionContainer\">" +
 				"<h1>Sainsbury Avocado</h1></div><body></html>";
@@ -115,7 +115,7 @@ public class ScraperTests {
 	}
 
 	@Test
-	public void testGetItem() {
+	public void testGetItem()  throws ScraperException{
 		String html = "<html><head><title>Sainsburys site</title></head><body>" +
 				"<p class=\"pricePerUnit\">£3.50/unit</p><div class=\"productText\">Great to eat</div>" +
 				"<div class=\"productTitleDescriptionContainer\">" +
@@ -150,6 +150,12 @@ public class ScraperTests {
 	}
 	
 	@Test(expected=ScraperException.class)
-	public void testException() {
+	public void testException() throws ScraperException{
+		String html = "<html><head><title>Sainsburys site</title></head><body>" +
+				"<p class=\"pricePerUnit\">£3.50/unit</p><body></html>";
+		
+		Document priceDocument = Jsoup.parse(html);
+		Elements elements = service.readElement(priceDocument, "WRONG-SELECTOR", null);
+		Assert.assertTrue(elements.first().text().equals("£3.50/unit"));
 	}
 }

@@ -36,10 +36,13 @@ public class Scraper {
 			log.info("Output JSON from console application: "+outputJson);
 		}catch(IOException e){
 			log.error("Failed calling the console application", e);
-		}/*catch(ScraperException e){
+			System.exit(1);
+		}catch(ScraperException e){
 			log.error("Failed calling the console application", e);
-		}*/catch(Exception e){
+			System.exit(1);
+		}catch(Exception e){
 			log.error("Failed calling the console application", e);
+			System.exit(1);
 		}
 	}
 }
