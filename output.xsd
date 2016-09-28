@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://www.sainsburys.com/schema" 
+    xmlns:tns="http://www.sainsburys.com/schema" 
+    elementFormDefault="qualified" attributeFormDefault="qualified">
+    
+    <xs:element name="output">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="results" type="tns:item" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="total" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="item">
+        <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="size" type="xs:string"/>
+            <xs:element name="unit_price" type="xs:decimal"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
