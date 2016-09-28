@@ -1,9 +1,7 @@
 package com.sainsburys.consoleapp.tests;
 
 import java.math.BigDecimal;
-
 import javafx.beans.binding.When;
-
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,7 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.sainsburys.consoleapp.exception.ScraperException;
 import com.sainsburys.consoleapp.model.Item;
 import com.sainsburys.consoleapp.model.Output;
-import com.sainsburys.scraper.ScraperService;
+import com.sainsburys.consoleapp.scraper.ScraperService;
 
 @RunWith(PowerMockRunner.class)
 public class ScraperTest {
